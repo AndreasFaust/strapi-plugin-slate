@@ -1,5 +1,5 @@
 {
-  "name": "slate",
+  "name": "strapi-plugin-slate",
   "version": "0.0.1",
   "description": "This is the description of the plugin.",
   "license": "MIT",
@@ -50,7 +50,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "name": "slate",
+    "name": "strapi-plugin-slate",
     "description": "Description of slate plugin",
     "kind": "plugin"
   }
