@@ -4,16 +4,8 @@ This plugin has the single purpose to replace Strapi’s default Slate implement
 
 This plugin is identical to this pull request:
 https://github.com/strapi/strapi/pull/20262
+As soon as the PR is accepted, this plugin is useless.
 
 ```bash
 npm i strapi-plugin-slate
-```
-
-```js
-// config/plugins.js
-module.exports = () => ({
-  slate: {
-    enabled: true,
-  },
-});
 ```
