@@ -1,4 +1,4 @@
-import { type Editor } from 'slate';
+import { type Editor } from "slate";
 
 /**
  * Images are void elements. They handle the rendering of their children instead of Slate.
@@ -10,7 +10,7 @@ const withImages = (editor: Editor) => {
   const { isVoid } = editor;
 
   editor.isVoid = (element) => {
-    return element.type === 'image' ? true : isVoid(element);
+    return element.type === "image" ? true : isVoid(element);
   };
 
   return editor;

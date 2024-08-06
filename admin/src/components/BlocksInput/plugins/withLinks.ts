@@ -1,4 +1,4 @@
-import { type BaseEditor, Path, Transforms, Range, Point, Editor } from 'slate';
+import { type BaseEditor, Path, Transforms, Range, Point, Editor } from "slate";
 
 interface LinkEditor extends BaseEditor {
   lastInsertedLinkPath: Path | null;
@@ -10,7 +10,7 @@ const withLinks = (editor: Editor) => {
 
   // Links are inline elements, so we need to override the isInline method for slate
   editor.isInline = (element) => {
-    return element.type === 'link' ? true : isInline(element);
+    return element.type === "link" ? true : isInline(element);
   };
 
   // We keep a track of the last inserted link path
@@ -19,15 +19,15 @@ const withLinks = (editor: Editor) => {
 
   // We intercept the apply method, so everytime we insert a new link, we save its path
   editor.apply = (operation) => {
-    if (operation.type === 'insert_node') {
+    if (operation.type === "insert_node") {
       if (
         !Editor.isEditor(operation.node) &&
-        operation.node.type === 'link' &&
+        operation.node.type === "link" &&
         editor.shouldSaveLinkPath
       ) {
         editor.lastInsertedLinkPath = operation.path;
       }
-    } else if (operation.type === 'move_node') {
+    } else if (operation.type === "move_node") {
       // We need to update the last inserted link path when link is moved
       // If link is the first word in the paragraph we dont need to update the path
       if (
@@ -35,7 +35,10 @@ const withLinks = (editor: Editor) => {
         editor.lastInsertedLinkPath &&
         editor.shouldSaveLinkPath
       ) {
-        editor.lastInsertedLinkPath = Path.transform(editor.lastInsertedLinkPath, operation);
+        editor.lastInsertedLinkPath = Path.transform(
+          editor.lastInsertedLinkPath,
+          operation
+        );
       }
     }
 
@@ -44,23 +47,30 @@ const withLinks = (editor: Editor) => {
 
   editor.insertText = (text) => {
     // When selection is at the end of a link and user types a space, we want to break the link
-    if (editor.selection && Range.isCollapsed(editor.selection) && text === ' ') {
+    if (
+      editor.selection &&
+      Range.isCollapsed(editor.selection) &&
+      text === " "
+    ) {
       const linksInSelection = Array.from(
         Editor.nodes(editor, {
           at: editor.selection,
-          match: (node) => !Editor.isEditor(node) && node.type === 'link',
+          match: (node) => !Editor.isEditor(node) && node.type === "link",
         })
       );
 
       const selectionIsInLink = editor.selection && linksInSelection.length > 0;
       const selectionIsAtEndOfLink =
         selectionIsInLink &&
-        Point.equals(editor.selection.anchor, Editor.end(editor, linksInSelection[0][1]));
+        Point.equals(
+          editor.selection.anchor,
+          Editor.end(editor, linksInSelection[0][1])
+        );
 
       if (selectionIsAtEndOfLink) {
         Transforms.insertNodes(
           editor,
-          { text: ' ', type: 'text' },
+          { text: " ", type: "text" },
           { at: Path.next(linksInSelection[0][1]), select: true }
         );
 

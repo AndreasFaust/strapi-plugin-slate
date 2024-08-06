@@ -1,7 +1,7 @@
-import { type Text, Node, Editor, Element, Transforms } from 'slate';
+import { type Text, Node, Editor, Element, Transforms } from "slate";
 
 const isText = (node: unknown): node is Text => {
-  return Node.isNode(node) && !Editor.isEditor(node) && node.type === 'text';
+  return Node.isNode(node) && !Editor.isEditor(node) && node.type === "text";
 };
 
 /**
@@ -19,7 +19,7 @@ const withStrapiSchema = (editor: Editor) => {
     const [node, path] = entry;
 
     if (!Element.isElement(node) && !isText(node)) {
-      Transforms.setNodes(editor, { type: 'text' }, { at: path });
+      Transforms.setNodes(editor, { type: "text" }, { at: path });
 
       return;
     }
