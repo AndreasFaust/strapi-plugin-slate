@@ -23,9 +23,9 @@
     "get-file-object-from-local-path": "1.0.2",
     "prop-types": "^15.8.1",
     "slate": "0.103.0",
-    "slate-history": "0.100.0",
+    "slate-history": "0.109.0",
     "slate-hyperscript": "0.100.0",
-    "slate-react": "0.107.1",
+    "slate-react": "0.110.0",
     "uid": "^2.0.2"
   },
   "devDependencies": {

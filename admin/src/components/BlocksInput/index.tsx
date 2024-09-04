@@ -1,4 +1,7 @@
 import * as React from "react";
+import { Box } from "@strapi/design-system/Box";
+import { Flex } from "@strapi/design-system/Flex";
+import { Typography } from "@strapi/design-system/Typography";
 
 import { createContext } from "@radix-ui/react-context";
 import { IconButton, Divider } from "@strapi/design-system";
@@ -185,11 +188,20 @@ interface BlocksEditorProps extends BlocksContentProps {
   disabled?: boolean;
   value?: Attribute.BlocksValue;
   error?: string;
+  intlLabel: MessageDescriptor;
 }
 
 const BlocksEditor = React.forwardRef<{ focus: () => void }, BlocksEditorProps>(
   (
-    { disabled = false, name, onChange, value, error, ...contentProps },
+    {
+      disabled = false,
+      name,
+      onChange,
+      value,
+      intlLabel,
+      error,
+      ...contentProps
+    },
     forwardedRef
   ) => {
     const { formatMessage } = useIntl();
@@ -259,7 +271,12 @@ const BlocksEditor = React.forwardRef<{ focus: () => void }, BlocksEditorProps>(
     };
 
     return (
-      <>
+      <Flex direction="column" alignItems="stretch" gap={1}>
+        <Box>
+          <Typography variant="pi" fontWeight="bold">
+            {formatMessage(intlLabel)}
+          </Typography>
+        </Box>
         <Slate
           editor={editor}
           initialValue={
@@ -301,7 +318,7 @@ const BlocksEditor = React.forwardRef<{ focus: () => void }, BlocksEditorProps>(
             </EditorLayout>
           </BlocksEditorProvider>
         </Slate>
-      </>
+      </Flex>
     );
   }
 );
